@@ -1,0 +1,38 @@
+<!DOCtype html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Numeronarvauspeli</title>
+		<script src="script.js"></script>
+	</head>
+	<body>
+		<!--
+		<p id="local">In local storage:</p>
+		<p id="session">In session storage:</p>
+		<label for="message">Enter message for storages:</label>
+		<input type="text" id="message" name="message"/>
+		<br/>
+		<button id="tolocal" onclick="storeToLocalStorage()">Store to locall storage</button>
+		<button id="tosession" onclick="storeToSessionStorage()">Store to session storage</button>
+		-->
+
+		<h2>Numeronarvauspeli</h2>
+		<label id="arvottu"></label>
+
+		<label>Arvaus: </label>
+		<label id="viesti"></label>
+		<p></p>
+
+		<!-- <label>Anna numero:</label> -->
+		<label for="message"></label>
+		<label>Anna numero:</label><input type="text" id="message" name="message"/>
+		<!-- <input type="text" id="arvottu" name="arvottu"/> -->
+		<input type="hidden" id="RightNum" name="RightNum" value=1>
+		<br/>
+		<button id="tolocal" onclick="tarkasta()">Tarkasta</button>
+		<button id="resetRightNum" onclick="resetRightNum()">Aloita uusi arvaus</button>
+		
+		<!--<input type="button" value="Tarkista" id="nappi1" onClick="tarkista();" />-->
+
+	</body>
+</html>
