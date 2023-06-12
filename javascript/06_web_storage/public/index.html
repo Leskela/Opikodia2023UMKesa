@@ -1,0 +1,17 @@
+<!DOCtype html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Web storage</title>
+		<script src="script.js"></script>
+	</head>
+	<body>
+		<p id="local">In local storage:</p>
+		<p id="session">In session storage:</p>
+		<label for="message">Enter message for storages:</label>
+		<input type="text" id="message" name="message"/>
+		<br/>
+		<button id="tolocal" onclick="storeToLocalStorage()">Store to locall storage</button>
+		<button id="tosession" onclick="storeToSessionStorage()">Store to session storage</button>
+	</body>
+</html>
