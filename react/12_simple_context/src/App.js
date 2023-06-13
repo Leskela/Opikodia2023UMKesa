@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { themes,ThemeContext } from './context/ThemeContext';
+import {themes,ThemeContext} from './context/ThemeContext';
 import {useState} from 'react';
 import Headline from './components/Headline';
 import Paragraph from './components/Paragraph';
