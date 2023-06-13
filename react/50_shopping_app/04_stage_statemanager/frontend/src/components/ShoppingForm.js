@@ -1,6 +1,5 @@
 import {useState} from 'react';
-import {useDispatch} from 'react-redux';
-import {add} from '../store/shoppingSlice';
+import useAction from '../hooks/useAction';
 
 const ShoppingForm = (props) => {
 	
@@ -10,7 +9,7 @@ const ShoppingForm = (props) => {
 		price:0
 	})
 	
-	const dispatch = useDispatch();
+	const {add} = useAction();
 	
 	const onChange = (event) => {
 		setState((state) => {
@@ -26,7 +25,7 @@ const ShoppingForm = (props) => {
 		let item = {
 			...state
 		}
-		dispatch(add(item));
+		add(item);
 		setState({
 			type:"",
 			count:0,

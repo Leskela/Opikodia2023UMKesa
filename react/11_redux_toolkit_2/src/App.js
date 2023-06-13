@@ -3,7 +3,7 @@ import {useState,useEffect} from 'react';
 import ShoppingForm from './components/ShoppingForm';
 import ShoppingList from './components/ShoppingList';
 import Navbar from './components/Navbar';
-import {Routes,Route,Navigate} from 'react-router-dom';
+import {Routes,Route,Navigate} from 'react-router-dom' ;
 import {useDispatch} from 'react-redux';
 import {getList} from './store/shoppingSlice';
 
