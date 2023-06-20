@@ -25,7 +25,6 @@ const EditRow = (props) => {
 		props.editItem(item);
 	}
 
-	// Shopping list rivin tylostus. Tässä määritelään ensimmäinen rivi!
 	return(
 		<tr>
 			<td><input type="text"

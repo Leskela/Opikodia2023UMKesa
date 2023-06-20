@@ -12,8 +12,7 @@ const mongo_password = process.env.MONGODB_PASSWORD;
 
 let port = process.env.PORT || 3001
 
-//const url = "mongodb+srv://"+mongo_user+":"+mongo_password+"@"+mongo_url+"/shoppingdatabase?retryWrites=true&w=majority";
-const url = "mongodb+srv://"+mongo_user+":"+mongo_password+"@"+mongo_url+"/shoppingStoredatabase?retryWrites=true&w=majority";
+const url = "mongodb+srv://"+mongo_user+":"+mongo_password+"@"+mongo_url+"/reduxtoolkitbase?retryWrites=true&w=majority";
 
 mongoose.connect(url).then(
 	() => console.log("Connected to MongoDB"),

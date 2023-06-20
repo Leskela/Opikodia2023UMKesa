@@ -12,17 +12,10 @@ const Navbar = (props) => {
 				<li className="nav-item" style={{marginLeft:10}}>
 					<Link to="/form" className="nav-link">Add new item</Link>
 				</li>
-				<li className="nav-item" style={{marginLeft:10}}>
-					<Link to="/testi" className="nav-link">Testi</Link>
-				</li>
-				<li className="nav-item" style={{marginLeft:10}}>
-					<Link to="/HuutokauppaForm" className="nav-link">Huutokauppa</Link>
-				</li>
-
 			</ul>
 		</nav>		
 	)
-
+	
 }
 
 export default Navbar;
