@@ -14,6 +14,7 @@ const mongo_password = process.env.MONGODB_PASSWORD;
 let port = process.env.PORT || 3001
 
 const url = "mongodb+srv://"+mongo_user+":"+mongo_password+"@"+mongo_url+"/HuutokauppaDatabase?retryWrites=true&w=majority";
+//const url = "mongodb+srv://alppilanmies:huutokauppasalasana@cluster0.woiu5mj.mongodb.net/auctionsdatabase?retryWrites=true&w=majority"
 
 mongoose.connect(url).then(
 	() => console.log("Connected to MongoDB"),
@@ -56,6 +57,46 @@ app.post("/api/aucevents", function(req, res){
     })
 
 })
+
+app.delete("/api/aucevents/:id", function(req, res){
+auceventModel.deleteOne({"_id":req.params.id})
+.then(function(stats){
+  console.log(stats)
+  return res.status(200).json({"Message":"Success"})
+})
+.catch(function(err){
+  return res.status(500).json({"Message":"Internal server error"})
+})
+})
+
+
+app.put("/api/aucevents/:id",function(req,res){
+  if(!req.body){
+    return res.status(400).json({"Message":"Bad request - body missing"})
+  }
+
+
+let auction = {
+  "auction_name" : req.body.auction_name,
+  "auction_date_start": req.body.auction_date_start,
+  "auction_date_end":req.body.auction_date_end,
+  "auction_description": req.body.auction_description,
+  "auction_address":req.body.auction_address,
+  "auction_email":req.body.auction_email,
+  "auction_phone":req.body.auction_phone
+}
+auceventModel.replaceOne({"_id":req.params.id}, auction)
+.then(function(stats){
+  console.log(stats)
+  return res.status(200).json({"Message":"Success"})
+})
+.catch(function(err){
+  console.log(err)
+  return req.status(500).json({"Message":"Internal server"})
+})
+
+})
+
 
 
 

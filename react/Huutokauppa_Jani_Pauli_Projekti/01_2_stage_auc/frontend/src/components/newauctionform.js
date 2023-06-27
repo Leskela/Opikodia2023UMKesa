@@ -1,9 +1,9 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
 
-const NewAuctionForm = ({addEvent}) => {
+const NewAuctionForm = ({addEvent, mode, editauc, editEvent}) => {
     const initialState = {
       auction_name: '',
       auction_date_start:null,
@@ -15,6 +15,21 @@ const NewAuctionForm = ({addEvent}) => {
     }
 
     const [state, setState] = useState(initialState)
+
+    useEffect(()=> {
+      if(mode ==="edit"){
+        setState({
+          auction_name: editauc.auction_name,
+          auction_date_start:null,
+          auction_date_end:null,
+          auction_description:editauc.auction_description,
+          auction_address: editauc.auction_address,
+          auction_email:editauc.auction_email,
+          auction_phone: editauc.auction_phone
+        })
+      }
+    }, [mode])
+  
 
     const handleChange = (event) => {
      
@@ -32,43 +47,63 @@ const NewAuctionForm = ({addEvent}) => {
       }));
     };
 
-      const onSubmit = (event) => {
-        event.preventDefault()
-        console.log(state);
+    const onSubmit = (event) => {
+      event.preventDefault()
+      console.log(state);
 
-        let errorText = "";
+      let errorText = "";
+      let errorDate = 0;
 
-        if(state.auction_name === "") {
-          errorText = "Tapahtuma nimi aikaa ei ole määritelty.";
-        };
+      if(state.auction_name === "") {
+        errorText = "Tapahtuma nimi aikaa ei ole määritelty.";
+      };
 
-        if(state.auction_date_start === null) {
-          errorText = errorText + "\n" + "Tapahtuma alkaa aikaa ei ole määritelty.";
-        };
+      if(state.auction_date_start === null) {
+        errorDate = 1;
+        errorText = errorText + "\n" + "Tapahtuma alkaa aikaa ei ole määritelty.";
+      };
 
-        if(state.auction_date_end === null) {
-          errorText = errorText + "\n" + "Tapahtuma päättyy aikaa ei ole määritelty.";
-        };
+      if(state.auction_date_end === null) {
+        errorDate = 1;
+        errorText = errorText + "\n" + "Tapahtuma päättyy aikaa ei ole määritelty.";
+      };
 
-        if(state.auction_email === "") {
-          errorText = errorText + "\n" + "Järjestäjän sähköpostiosoitetta ei ole määritelty.";
-        };
-
-        if(state.auction_phone === "") {
-          errorText = errorText + "\n" + "Tapahtuman yhteysnumero ei ole määritelty.";
-        };
-
-        if(!(errorText === "")) {
-          errorText = "Lisää seuraavat pakolliset tiedot:\n" + errorText;
-
-          alert(errorText);
-        } else {
-          addEvent(state) //Tallenetaan annetut input kenttien arvot!
-          setState(initialState) //Tyhjentää anetut input kenttien arvot!
-
-          alert("Huutokaupan tiedot lisätty");
+      if(errorDate === 0) {
+        if(state.auction_date_start > state.auction_date_end) {
+          errorText = errorText + "\n" + "Tapahtuma päättyy aika on pienempi kuin alkaa aika.";
         }
       }
+
+      if(state.auction_email === "") {
+        errorText = errorText + "\n" + "Järjestäjän sähköpostiosoitetta ei ole määritelty.";
+      };
+
+      if(state.auction_phone === "") {
+        errorText = errorText + "\n" + "Tapahtuman yhteysnumero ei ole määritelty.";
+      };
+
+      if(!(errorText === "")) {
+        errorText = "Korjaa seuraavat pakolliset tiedot:\n" + errorText;
+
+        alert(errorText);
+      } else {
+
+        if(mode === "add"){
+          addEvent(state) //Tallenetaan annetut input kenttien arvot!
+        }
+        else {
+          let auction = {
+            ...state,
+            _id:editauc._id
+          }
+          editEvent(auction)
+        }
+
+        setState(initialState) //Tyhjentää anetut input kenttien arvot!
+
+        alert("Huutokaupan tiedot lisätty");
+      }
+    }
 
 
 
