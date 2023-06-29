@@ -27,8 +27,7 @@ const editEvent = () => {
     const aucevent = {
       ...state,
     _id: props.aucevent._id,
-    auction_date_start:props.aucevent.auction_date_start,
-    auction_date_end:props.aucevent.auction_date_end    
+ 
 };
     props.editEvent(aucevent);
   };

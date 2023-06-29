@@ -1,13 +1,14 @@
 import {useState, useEffect} from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import moment from 'moment';
 
 
 const NewAuctionForm = ({addEvent, mode, editauc, editEvent}) => {
     const initialState = {
       auction_name: '',
-      auction_date_start:null,
-      auction_date_end:null,
+      auction_date_start:moment().toDate(),
+      auction_date_end:moment().toDate(),
       auction_description: '',
       auction_address: '',
       auction_email: '',
@@ -15,17 +16,23 @@ const NewAuctionForm = ({addEvent, mode, editauc, editEvent}) => {
     }
 
     const [state, setState] = useState(initialState)
+    const [buttonState, setButtonState] = useState({
+      buttonName:"Tallenna ja jatka"
+    })
 
     useEffect(()=> {
       if(mode ==="edit"){
         setState({
           auction_name: editauc.auction_name,
-          auction_date_start:null,
-          auction_date_end:null,
+          auction_date_start: moment(editauc.auction_date_start).toDate(),
+          auction_date_end: moment(editauc.auction_date_end).toDate(),
           auction_description:editauc.auction_description,
           auction_address: editauc.auction_address,
           auction_email:editauc.auction_email,
           auction_phone: editauc.auction_phone
+        })
+        setButtonState({
+          buttonName:"Hyväksy muutokset"
         })
       }
     }, [mode])
@@ -43,7 +50,7 @@ const NewAuctionForm = ({addEvent, mode, editauc, editEvent}) => {
     const onDateChange = (date, field) => {
       setState((prevState) => ({
         ...prevState,
-        [field]: date,
+        [field]: date ? moment(date).toDate() : null
       }));
     };
 
@@ -90,6 +97,8 @@ const NewAuctionForm = ({addEvent, mode, editauc, editEvent}) => {
 
         if(mode === "add"){
           addEvent(state) //Tallenetaan annetut input kenttien arvot!
+        
+          alert("Huutokaupan tiedot lisätty");
         }
         else {
           let auction = {
@@ -97,18 +106,18 @@ const NewAuctionForm = ({addEvent, mode, editauc, editEvent}) => {
             _id:editauc._id
           }
           editEvent(auction)
+          setButtonState({
+            buttonName:"Tallenna ja jatka"
+          })
+          alert("Huutokaupan tiedot päivitetty");
         }
 
         setState(initialState) //Tyhjentää anetut input kenttien arvot!
-
-        alert("Huutokaupan tiedot lisätty");
       }
     }
 
 
-
 return (
-    
 	<div style={{
 		"backgroundColor":"lightblue",
 		"margin":"auto",
@@ -132,25 +141,30 @@ return (
 <DatePicker
   className="form-control"
   selected={state.auction_date_start}
-  onChange={(date) => onDateChange(date, "auction_date_start")}  
-  dateFormat="dd/MM/yyyy HH:mm" 
-  showTimeSelect 
-  timeFormat="HH:mm" 
-  timeIntervals={15} 
+  onChange={(date) =>
+    onDateChange(date ? moment(date).toDate() : null, 'auction_date_start')
+  }
+  dateFormat="dd/MM/yyyy HH:mm"
+  showTimeSelect
+  timeFormat="HH:mm"
+  timeIntervals={15}
   name="auction_date_start"
   id="auction_date_start"
 />
-<label htmlFor="auction_date_end" className="form-label">
+
+<label htmlFor="auction_date_start" className="form-label">
   <b>Tapahtuma päättyy</b>
 </label>
 <DatePicker
   className="form-control"
   selected={state.auction_date_end}
-  onChange={(date) => onDateChange(date, "auction_date_end")}
-  dateFormat="dd/MM/yyyy HH:mm" 
-  showTimeSelect 
-  timeFormat="HH:mm" 
-  timeIntervals={15} 
+  onChange={(date) =>
+    onDateChange(date ? moment(date).toDate() : null, 'auction_date_end')
+  }
+  dateFormat="dd/MM/yyyy HH:mm"
+  showTimeSelect
+  timeFormat="HH:mm"
+  timeIntervals={15}
   name="auction_date_end"
   id="auction_date_end"
 />
@@ -189,7 +203,7 @@ return (
     onChange={handleChange}
 	value={state.auction_phone}/>
 
-<button type="submit" className="btn btn-primary">Tallenna ja jatka</button>
+<button type="submit" className="btn btn-primary">{buttonState.buttonName}</button>
 
 </form>
 
