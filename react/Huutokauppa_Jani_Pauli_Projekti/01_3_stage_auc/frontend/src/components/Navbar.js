@@ -8,7 +8,7 @@ const Navbar = (props) => {
 		<nav className="navbar navbar-expand-lg navbar-light bg-info">
 			<ul className="navbar-nav">
 				<li className="nav-item" style={{marginLeft:10}}>
-					<Link to="/" className="nav-link">Huutokaupat</Link>
+					<Link to="/auctionspubliclist" className="nav-link">Huutokaupat</Link>
 				</li>
 				<li className="nav-item" style={{marginLeft:10}}>
 					<Link to="/admin" className="nav-link">Ylläpito</Link>

@@ -1,8 +1,7 @@
 // import './App.css';
 import { useState, useEffect } from 'react';
 import AdminPage from './components/adminPage';
-// import ShoppingForm from './components/ShoppingForm';
-// import ShoppingList from './components/ShoppingList';
+import AuctionsPublicList from './components/auctionspubliclist';
 import Navbar from './components/Navbar';
 import LoginPage from './components/LoginPage';
 import { Routes, Route, Navigate } from 'react-router-dom';
@@ -389,14 +388,19 @@ function App() {
 	if (state.isLogged) {
 		return (
 			<div className="App">
-				<h1>#308 Janin ja Paulin Huutokauppa palvelu Oy</h1> {/*Koska Route*/}
+				<h1>Janin ja Paulin Huutokauppa palvelu Oy</h1> {/*Koska Route*/}
 				<Navbar logout={logout} isLogged={state.isLogged} user={state.user} />
 				<div style={{ height: 25, textAlign: "center" }}>
 					{message}
 				</div>
 				<Routes>
-					{/* <Route path="/" element={<ShoppingList list={state.list} removeItem={removeItem} editItem={editItem} getList={getList}/>}/> */}
-					{/* <Route path="/form" element={<ShoppingForm addItem={addItem}/>}/> */}
+					<Route path="/auctionspubliclist"
+						element={<AuctionsPublicList
+      						list={state.list}
+							removeEvent={removeEvent}
+							changeToEditMode={changeToEditMode} />
+						} />
+
 					<Route path="/admin"
 						element={<AdminPage
 							addEvent={addEvent}
