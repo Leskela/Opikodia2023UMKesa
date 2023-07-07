@@ -53,6 +53,7 @@ const AuctionsList = (props) => {
   let auctionevents = props.list.map((aucevent, index) => {
     const convertedStartTime = convertToHelsinkiTime(aucevent.auction_date_start);
     const convertedEndTime = convertToHelsinkiTime(aucevent.auction_date_end);
+    console.log("#56 convertToHelsinkiTime ", convertToHelsinkiTime)
     
     if (index === state.removeIndex) {
       return (

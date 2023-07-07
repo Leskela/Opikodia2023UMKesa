@@ -27,7 +27,7 @@ const Navbar = (props) => {
 			// <nav className="navbar navbar-expand-lg navbar-light bg-light">
 			// <nav class="navbar navbar-dark bg-primary">
 			<nav class="navbar navbar-dark bg-info">
-				<p className="navbar-brand" style={{marginLeft:10}}>#33 Huutokauppa palvelu</p>
+				<p className="navbar-brand" style={{marginLeft:10}}>Huutokauppa palvelu</p>
 				<ul className="navbar-nav">
 				</ul>
 			</nav>		
